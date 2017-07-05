@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+
+    <!--<script src="js/shop.js"></script>
+    <script src="js/search.js"></script>-->
+    <link rel="stylesheet" href="css/seach.css" />
+    <title>搜索</title>
+</head>
+<body>
+<div class="warp">
+    <div class="header">
+        <a class="bark" href="index.html">&lt</a>
+       <input type="text" class="put" /><button class="btn"></button>
+    </div>
+    <!--<div class="souye">
+        <p><a href="index.html" base="_self">首页</a></p>
+            <p><a href="fenlei.html" base="_self">分类</a></p>
+            <p><a href="match.html" base="_self">搭配</a></p>
+            <p><a href="details.html" base="_self">详情</a></p>
+            <p><a href="search.html" base="_self">搜索</a></p>
+            <p><a href="login.html" base="_self">登录</a></p>
+            <p><a href="mine.html" base="_self">我的</a></p>
+            <p><a href="shoping.html" base="_self">购物袋</a></p>
+    </div>-->
+	<div class="bg">
+		<img src="img/sousuo-bg.png" alt="" />
+	</div>
+	<div class="box">
+        <div class="titl">
+        </div>
+        <div class="news">
+            <span>风向</span>
+            <span>风级</span>
+            <span>高温</span>
+            <span>天气</span>
+            <span>低温</span>
+            <span>日期</span>
+            <ul>
+            
+            </ul>
+          
+        </div>
+    </div>
+
+
+</div>
+</body>
+  <script src="jquery-3.1.1.js"></script>
+  <script>
+  $(function(){
+	$(".btn").click(function(){
+		var $val=$(".put").val();
+		var cityList;
+		$(".box").show();
+		if($val!=""){
+		$.ajax({
+			type:"get",
+			url:"http://wthrcdn.etouch.cn/weather_mini?city="+$val,
+			data:{},
+			dataType:"json",
+			success:function(data){
+				console.log(data)
+				if(data.status!=1002){
+					 $.each(data,function(i,j){
+                            $('.titl').html(j.ganmao);
+                            $.each(j.yesterday,function(k,l){
+                                $('.news ul').append('<li>'+l+'</li>');
+                            });
+                            $.each(j.forecast,function(a,b){
+                                $.each(b,function(n,m){
+                                    $('.news ul').append('<li>'+m+'</li>');
+                                });
+                            })
+                        });
+				}
+				console.log(data)
+//				$.each(cityList, function(a,b) {
+//					
+//				});
+				
+			}
+		});
+		}else{
+			
+		}
+	})
+})
+	  
+        
+       
+  </script>
+</html>
